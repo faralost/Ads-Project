@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block title %}Личная страница{% endblock %}
+
+{% block nav %}
+    {% if request.user == user_obj %}
+        <li class="nav-item"><a class="nav-link px-2 text-white" href="{% url 'accounts:profile_change' %}">Редактировать</a>
+        </li>
+        <li class="nav-item"><a class="nav-link px-2 text-white" href="{% url 'accounts:password_change' %}">Смена
+            пароля</a></li>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-7">
+                <div class="card p-3 py-4">
+                    <div class="text-center">
+                        {% if user_obj.profile.avatar %}
+                            <img src="{{ user_obj.profile.avatar.url }}" width="200" class="">
+                        {% else %}
+                            <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+                                 width="200" class="">
+                        {% endif %}
+                    </div>
+                    <div class="text-center mt-3">
+                        <span class="bg-secondary p-1 px-4 rounded text-white">{{ user_obj.username }}</span><br>
+                        <span>{{ user_obj.email }}</span>
+                        {% if user_obj.profile.github_profile %}
+                            <p class="mb-0"><a class="link-dark" target="_blank"
+                                               href="{{ user_obj.profile.github_profile }}"><i class="bi bi-github"
+                                                                                               style="font-size:50px;"></i></a>
+                            </p>
+                        {% endif %}
+                        <h5 class="mb-0">{{ user_obj.first_name }} {{ user_obj.last_name }}</h5>
+                        <div class="px-4 mt-1">
+                            {% if user_obj.profile.about %}
+                                <p class="fonts">{{ user_obj.profile.about }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

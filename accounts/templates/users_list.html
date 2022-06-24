@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %}Пользователи{% endblock %}
+
+{% block content %}
+    <div class="list-group mt-4 w-50 mx-auto">
+        <h2>Список пользователей</h2>
+        {% for user_obj in user_list %}
+            <a href="{% url 'accounts:detail_profile' user_obj.profile.slug %}"
+               class="list-group-item list-group-item-action list-group-item-info">{{ user_obj }}</a>
+        {% endfor %}
+    </div>
+{% endblock %}

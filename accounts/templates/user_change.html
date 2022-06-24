@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}Редактирование профиля{% endblock %}
+
+{% block nav %}
+<li class="nav-item"><a class="nav-link px-2 text-white" href="{% url 'accounts:password_change' %}">Смена
+    пароля</a></li>
+{% endblock %}
+
+
+
+{% block content %}
+    <h2>Редактирование личных данных</h2>
+    <form action="{% url 'accounts:profile_change' %}" method="post"
+          enctype="multipart/form-data">
+        {% csrf_token %}
+        {% include 'form.html' with form=form fields_only=True %}
+        {% include 'form.html' with form=profile_form fields_only=True %}
+        <br>
+        <input class="btn btn-primary" type="submit" value="Применить">
+    </form>
+{% endblock %}
