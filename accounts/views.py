@@ -13,7 +13,7 @@ User = get_user_model()
 
 class RegisterView(CreateView):
     model = User
-    template_name = "registration.html"
+    template_name = "accounts/registration.html"
     form_class = MyUserCreationForm
 
     def form_valid(self, form):
@@ -33,13 +33,13 @@ class RegisterView(CreateView):
 
 class UserDetailView(LoginRequiredMixin, DetailView):
     model = User
-    template_name = 'user_detail.html'
+    template_name = 'accounts/user_detail.html'
     context_object_name = 'user_obj'
     slug_field = 'profile__slug'
 
 
 class UsersListView(PermissionRequiredMixin, ListView):
-    template_name = 'users_list.html'
+    template_name = 'accounts/users_list.html'
     model = User
     permission_required = 'accounts.view_profile'
 
@@ -50,7 +50,7 @@ class UsersListView(PermissionRequiredMixin, ListView):
 class UserChangeView(LoginRequiredMixin, UpdateView):
     model = User
     form_class = UserChangeForm
-    template_name = 'user_change.html'
+    template_name = 'accounts/user_change.html'
     context_object_name = 'user_obj'
 
     def get_object(self, queryset=None):
@@ -92,7 +92,7 @@ class UserChangeView(LoginRequiredMixin, UpdateView):
 
 class UserPasswordChangeView(LoginRequiredMixin, UpdateView):
     model = User
-    template_name = 'user_password_change.html'
+    template_name = 'accounts/user_password_change.html'
     form_class = PasswordChangeForm
     context_object_name = 'user_obj'
 

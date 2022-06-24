@@ -14,8 +14,8 @@
     <form action="{% url 'accounts:profile_change' %}" method="post"
           enctype="multipart/form-data">
         {% csrf_token %}
-        {% include 'form.html' with form=form fields_only=True %}
-        {% include 'form.html' with form=profile_form fields_only=True %}
+        {% include 'accounts/form.html' with form=form fields_only=True %}
+        {% include 'accounts/form.html' with form=profile_form fields_only=True %}
         <br>
         <input class="btn btn-primary" type="submit" value="Применить">
     </form>
