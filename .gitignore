@@ -12,3 +12,4 @@ settings_local.py
 .env
 .python-version
 .env.prod
+media
