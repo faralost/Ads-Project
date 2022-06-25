@@ -49,7 +49,7 @@ class AdDetailView(DetailView):
 
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
-        if self.object.status == Ad.PUBLISHED:
+        if self.object.status == Ad.PUBLISHED or self.request.user == self.object.author:
             context = self.get_context_data(object=self.object)
             return self.render_to_response(context)
         else:
@@ -113,7 +113,7 @@ class AdUpdateView(PermissionRequiredMixin, UpdateView):
         return reverse("webapp:ads_detail", kwargs={"pk": self.get_object().pk})
 
     def has_permission(self):
-        return self.request.user == self.get_object().author
+        return self.request.user == self.get_object().author and self.get_object().status != Ad.REJECTED
 
 
 class AdDeleteView(PermissionRequiredMixin, DeleteView):
