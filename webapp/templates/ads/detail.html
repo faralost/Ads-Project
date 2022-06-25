@@ -4,5 +4,26 @@
 {% block title %}Детальный просмотр объявления{% endblock %}
 {% block content %}
     {% include 'partial/detail_ad.html' %}
-    {% include 'comments/create.html' %}
+    {% if comments %}
+        <h3>Комментарии</h3>
+        {% for comment in comments %}
+            <div class="card" style="width: 36rem;">
+                <div class="card-header">
+                    Автор: {{ comment.author }}
+                </div>
+                <div class="card-body">
+                    <pre class="card-text">{{ comment.content }}</pre>
+                </div>
+                <div class="card-footer text-muted">
+                    {{ comment.created_at }}
+                </div>
+            </div>
+            <br>
+        {% endfor %}
+
+    {% endif %}
+    <br>
+    {% if request.user.is_authenticated %}
+        {% include 'comments/create.html' %}
+    {% endif %}
 {% endblock %}

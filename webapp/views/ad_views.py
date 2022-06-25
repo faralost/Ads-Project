@@ -5,7 +5,7 @@ from django.urls import reverse, reverse_lazy
 from django.views.generic import DetailView, UpdateView, DeleteView, CreateView
 
 from webapp.forms import AdForm, CommentForm
-from webapp.models import Ad
+from webapp.models import Ad, Comment
 from webapp.views.base import SearchListView
 
 
@@ -37,6 +37,7 @@ class AdDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['form'] = CommentForm
+        context['comments'] = Comment.objects.order_by('-created_at')
         return context
 
     def post(self, request, *args, **kwargs):
