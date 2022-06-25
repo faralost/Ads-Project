@@ -35,13 +35,23 @@ class UserDetailView(DetailView):
     context_object_name = 'user_obj'
     slug_field = 'profile__slug'
 
+    def get_queryset(self):
+        return super().get_queryset().select_related('profile')
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
         user = get_object_or_404(User, profile__slug=self.kwargs.get('slug'))
         if self.request.user == user:
-            context['ads'] = user.ads.exclude(status=Ad.TO_DELETE)
+            context['ads'] = user.ads.select_related(
+                'author', 'author__profile', 'category'
+            ).exclude(
+                status=Ad.TO_DELETE
+            )
         else:
-            context['ads'] = user.ads.filter(status=Ad.PUBLISHED)
+            context['ads'] = user.ads.select_related(
+                'author', 'author__profile', 'category'
+            ).filter(
+                status=Ad.PUBLISHED)
         return context
 
 

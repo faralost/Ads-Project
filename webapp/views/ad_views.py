@@ -18,13 +18,24 @@ class AdsListView(SearchListView):
 
     def get_queryset(self):
         queryset = super().get_queryset()
-        return queryset.exclude(status=Ad.TO_DELETE).filter(status=Ad.PUBLISHED).order_by('-published_at')
+        return queryset.exclude(
+            status=Ad.TO_DELETE
+        ).filter(
+            status=Ad.PUBLISHED
+        ).select_related(
+            'author', 'author__profile', 'category'
+        ).order_by(
+            '-published_at'
+        )
 
 
 class AdDetailView(DetailView):
     model = Ad
     template_name = 'ads/detail.html'
     context_object_name = 'ad'
+
+    def get_queryset(self):
+        return super().get_queryset().select_related('author', 'author__profile', 'category')
 
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -37,7 +48,11 @@ class AdDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['form'] = CommentForm
-        context['comments'] = Comment.objects.order_by('-created_at')
+        context['comments'] = Comment.objects.select_related(
+            'author', 'ad'
+        ).order_by(
+            '-created_at'
+        )
         return context
 
     def post(self, request, *args, **kwargs):

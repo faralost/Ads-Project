@@ -18,7 +18,15 @@ class AdsToModerateListView(PermissionRequiredMixin, SearchListView):
 
     def get_queryset(self):
         queryset = super().get_queryset()
-        return queryset.exclude(status=Ad.TO_DELETE).filter(status=Ad.TO_MODERATE).order_by('-created_at')
+        return queryset.exclude(
+            status=Ad.TO_DELETE
+        ).filter(
+            status=Ad.TO_MODERATE
+        ).select_related(
+            'author', 'author__profile', 'category'
+        ).order_by(
+            '-created_at'
+        )
 
     def has_permission(self):
         return self.request.user.is_staff
@@ -28,6 +36,9 @@ class AdToModerateDetailView(PermissionRequiredMixin, DetailView):
     model = Ad
     template_name = 'ads/to_moderate_detail.html'
     context_object_name = 'ad'
+
+    def get_queryset(self):
+        return super().get_queryset().select_related('author', 'author__profile', 'category')
 
     def has_permission(self):
         return self.request.user.is_staff
