@@ -4,6 +4,10 @@
 {% block title %}Детальный просмотр объявления для модерации{% endblock %}
 {% block content %}
     <br>
+    <div id="alert" class="alert mt-4" role="alert" style="display: none">
+
+    </div>
+
         <button class="request btn btn btn-info"
                 data-ad-url="{% url 'webapp:ads_to_moderate_publish' ad.pk %}">
             опубликовать

@@ -7,7 +7,19 @@ async function onClick(event) {
     }
     let response = await fetch(url, settings)
     let answer = await response.json()
-    console.log(answer)
+    let alertDiv = document.getElementById('alert')
+    let status = document.getElementById('status')
+    console.log(answer.answer)
+    if (answer.answer === 'Опубликован'){
+        alertDiv.style.display = 'block';
+        alertDiv.className = 'alert alert-success mt-4'
+        alertDiv.innerText = answer.answer;
+        status.innerText = `Статус: Опубликовано`
+    } else {
+        alertDiv.style.display = 'block';
+        alertDiv.className = 'alert alert-warning mt-4'
+        alertDiv.innerText = answer.answer;
+    }
 }
 
 function onLoad() {
