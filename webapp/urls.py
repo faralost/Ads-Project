@@ -9,6 +9,7 @@ from webapp.views import (
     AdCreateView,
     AdDetailView,
     AdUpdateView,
+    AdDeleteView,
 )
 
 app_name = 'webapp'
@@ -22,4 +23,5 @@ urlpatterns = [
     path('ad/create/', AdCreateView.as_view(), name='ads_create'),
     path('ad/<int:pk>/', AdDetailView.as_view(), name='ads_detail'),
     path('ad/<int:pk>/update', AdUpdateView.as_view(), name='ads_update'),
+    path('ad/<int:pk>/delete/', AdDeleteView.as_view(), name='ads_delete'),
 ]

@@ -1,9 +1,9 @@
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.utils import timezone
 from django.views import View
-from django.views.generic import ListView, DetailView, CreateView, UpdateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 from webapp.forms import AdForm
 from webapp.models import Ad
@@ -94,3 +94,9 @@ class AdUpdateView(UpdateView):
 
     def get_success_url(self):
         return reverse("webapp:ads_detail", kwargs={"pk": self.object.pk})
+
+
+class AdDeleteView(DeleteView):
+    model = Ad
+    template_name = 'ads/delete.html'
+    success_url = reverse_lazy('webapp:index')

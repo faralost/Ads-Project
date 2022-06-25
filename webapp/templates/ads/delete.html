@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Удаление{% endblock %}
+
+{% block content %}
+    <h3>Вы уверены, что хотите удалить объявление "{{ ad }}"</h3>
+    <form action="{% url "webapp:ads_delete" ad.pk %}" method="post">
+        {% csrf_token %}
+        <div class="btn-group">
+            <button class="btn btn-danger" type="submit">Удалить</button>
+            <a class="btn btn-info" href="{% url 'webapp:ads_detail' ad.pk %}">Отмена</a>
+        </div>
+    </form>
+{% endblock %}
