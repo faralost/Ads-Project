@@ -1,9 +1,10 @@
 from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse, reverse_lazy
-from django.views.generic import ListView, DetailView, UpdateView, DeleteView, CreateView
+from django.views.generic import DetailView, UpdateView, DeleteView, CreateView
 
-from webapp.forms import AdForm
+from webapp.forms import AdForm, CommentForm
 from webapp.models import Ad
 from webapp.views.base import SearchListView
 
@@ -32,6 +33,24 @@ class AdDetailView(DetailView):
             return self.render_to_response(context)
         else:
             raise PermissionDenied
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = CommentForm
+        return context
+
+    def post(self, request, *args, **kwargs):
+        ad = get_object_or_404(Ad, pk=self.kwargs.get('pk'))
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.author = self.request.user
+            comment.ad = ad
+            comment.save()
+            return redirect('webapp:ads_detail', pk=ad.pk)
+        else:
+            form = CommentForm()
+        return render(request, 'ads/detail.html', {'form': form, 'ad': ad})
 
 
 class AdCreateView(LoginRequiredMixin, CreateView):
