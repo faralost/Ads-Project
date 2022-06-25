@@ -10,7 +10,10 @@
                 {% endif %}
                 <div class="card-body">
                     <h5 class="card-title"><a
-                            href="{% url 'webapp:ads_to_moderate_detail' ad.pk %}">{{ ad.title }}</a></h5>
+                            href="{% if request.path == '/moderate_ads/' %}
+                            {% url 'webapp:ads_to_moderate_detail' ad.pk %}
+                            {% else %}{% url 'webapp:ads_detail' ad.pk %}
+                            {% endif %}">{{ ad.title }}</a></h5>
                     <p class="card-text">Категория: {{ ad.category }}</p>
                     <p class="card-text">Автор: {{ ad.author }} </p>
                     <p class="card-text">Телефон: {{ ad.author.profile.phone_number }} </p>

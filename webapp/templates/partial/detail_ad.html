@@ -14,6 +14,7 @@
                         <p class="card-text">Телефон: {{ ad.author.profile.phone_number }} </p>
                         <p class="card-text">Дата создания: {{ ad.created_at}} </p>
                         <p class="card-text">Дата публикации: {{ ad.published_at|default:'еще не опубликовано'}} </p>
+                        <p class="card-text">Статус: {{ ad.get_status_display}}</p>
                         <div class="btn-group">
                             <a class="btn btn-primary"
                                href="#">Изменить</a>
