@@ -3,7 +3,7 @@ from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
 from django.views import View
-from django.views.generic import ListView, DetailView
+from django.views.generic import DetailView
 
 from webapp.models import Ad
 from webapp.views.base import SearchListView

@@ -6,8 +6,12 @@ from django.urls import reverse
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(get_user_model(), related_name='profile', on_delete=models.CASCADE,
-                                verbose_name='Профиль')
+    user = models.OneToOneField(
+        get_user_model(),
+        related_name='profile',
+        on_delete=models.CASCADE,
+        verbose_name='Профиль'
+    )
     avatar = models.ImageField(null=True, blank=True, upload_to='avatars', verbose_name='Аватар')
     github_profile = models.URLField(verbose_name='Ссылка на Гитхаб', null=True, blank=True)
     about = models.TextField(max_length=1000, verbose_name='О себе', null=True, blank=True)
@@ -35,4 +39,3 @@ class Profile(models.Model):
     class Meta:
         verbose_name = 'Профиль'
         verbose_name_plural = 'Профили'
-
