@@ -1,11 +1,11 @@
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
-from django.urls import reverse_lazy, reverse
+from django.urls import reverse
 from django.utils import timezone
 from django.views import View
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 
-from webapp.forms import AdCreateForm
+from webapp.forms import AdForm
 from webapp.models import Ad
 
 
@@ -73,10 +73,23 @@ class AdRejectView(View):
 class AdCreateView(CreateView):
     model = Ad
     template_name = 'ads/create.html'
-    form_class = AdCreateForm
+    form_class = AdForm
 
     def form_valid(self, form):
         form.instance.author = self.request.user
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse("webapp:ads_detail", kwargs={"pk": self.object.pk})
+
+
+class AdUpdateView(UpdateView):
+    model = Ad
+    template_name = 'ads/update.html'
+    form_class = AdForm
+
+    def form_valid(self, form):
+        form.instance.status = Ad.TO_MODERATE
         return super().form_valid(form)
 
     def get_success_url(self):

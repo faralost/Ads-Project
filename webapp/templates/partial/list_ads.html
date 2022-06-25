@@ -19,7 +19,7 @@
                     <p class="card-text">Телефон: {{ ad.author.profile.phone_number }} </p>
                     <div class="btn-group">
                         <a class="btn btn-primary"
-                           href="#">Изменить</a>
+                           href="{% url 'webapp:ads_update' ad.pk %}">Изменить</a>
                         <a class="btn btn-danger"
                            href="#">Удалить</a>
                     </div>
