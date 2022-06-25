@@ -14,7 +14,16 @@ async function onClick(event) {
         alertDiv.style.display = 'block';
         alertDiv.className = 'alert alert-success mt-4'
         alertDiv.innerText = answer.answer;
-        status.innerText = `Статус: Опубликовано`
+        status.innerText = `Статус: Опубликовано`;
+    } else if (answer.answer === 'Уже был опубликован') {
+        alertDiv.style.display = 'block';
+        alertDiv.className = 'alert alert-warning mt-4';
+        alertDiv.innerText = answer.answer;
+    } else if (answer.answer === 'Отклонен') {
+        alertDiv.style.display = 'block';
+        alertDiv.className = 'alert alert-success mt-4'
+        alertDiv.innerText = answer.answer;
+        status.innerText = `Статус: Отклонено`;
     } else {
         alertDiv.style.display = 'block';
         alertDiv.className = 'alert alert-warning mt-4'
