@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
+from django.core.exceptions import PermissionDenied
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.urls import reverse, reverse_lazy
@@ -44,6 +45,14 @@ class AdDetailView(DetailView):
     model = Ad
     template_name = 'ads/detail.html'
     context_object_name = 'ad'
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        if self.object.status == Ad.PUBLISHED:
+            context = self.get_context_data(object=self.object)
+            return self.render_to_response(context)
+        else:
+            raise PermissionDenied
 
 
 class AdPublishView(View):

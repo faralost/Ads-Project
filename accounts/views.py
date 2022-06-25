@@ -38,7 +38,7 @@ class UserDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
         user = get_object_or_404(User, profile__slug=self.kwargs.get('slug'))
-        if self.request.user == user or self.request.user.is_staff:
+        if self.request.user == user:
             context['ads'] = user.ads.exclude(status=Ad.TO_DELETE)
         else:
             context['ads'] = user.ads.filter(status=Ad.PUBLISHED)
