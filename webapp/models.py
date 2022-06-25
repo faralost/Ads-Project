@@ -64,3 +64,21 @@ class Category(models.Model):
     def __str__(self):
         return f'{self.name}'
 
+
+class Comment(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
+    updated_at = models.DateTimeField(auto_now=True, verbose_name="Дата изменения")
+    content = models.TextField(max_length=1000, verbose_name="Контент")
+    author = models.ForeignKey(
+        User,
+        related_name="comments",
+        on_delete=models.CASCADE,
+        verbose_name="Автор"
+    )
+
+    ad = models.ForeignKey(
+        "webapp.Ad",
+        on_delete=models.CASCADE,
+        related_name="comments",
+        verbose_name="Объявление",
+    )
