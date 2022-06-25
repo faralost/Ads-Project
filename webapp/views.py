@@ -90,7 +90,7 @@ class AdCreateView(LoginRequiredMixin, CreateView):
         return reverse("webapp:ads_detail", kwargs={"pk": self.object.pk})
 
 
-class AdUpdateView(UpdateView):
+class AdUpdateView(PermissionRequiredMixin, UpdateView):
     model = Ad
     template_name = 'ads/update.html'
     form_class = AdForm
@@ -100,7 +100,10 @@ class AdUpdateView(UpdateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse("webapp:ads_detail", kwargs={"pk": self.object.pk})
+        return reverse("webapp:ads_detail", kwargs={"pk": self.get_object().pk})
+
+    def has_permission(self):
+        return self.request.user == self.get_object().author
 
 
 class AdDeleteView(DeleteView):

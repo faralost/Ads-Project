@@ -20,8 +20,10 @@
                     <p class="card-text">Телефон: {{ ad.author.profile.phone_number }} </p>
                     <p class="card-text">Статус: {{ ad.get_status_display}}</p>
                     <div class="btn-group">
+                        {% if request.user == ad.author %}
                         <a class="btn btn-primary"
                            href="{% url 'webapp:ads_update' ad.pk %}">Изменить</a>
+                        {% endif %}
                         <a class="btn btn-danger"
                            href="{% url 'webapp:ads_delete' ad.pk %}">Удалить</a>
                     </div>
