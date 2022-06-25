@@ -24,6 +24,7 @@ class Ad(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Дата изменения')
     piblished_at = models.DateTimeField(null=True, verbose_name='Дата публикации')
+    photo = models.ImageField(null=True, upload_to='ad_photos', verbose_name='Фото')
     category = models.ForeignKey(
         'webapp.Category',
         on_delete=models.PROTECT,
@@ -31,6 +32,8 @@ class Ad(models.Model):
         related_name='ads'
     )
     price = models.DecimalField(
+        null=True,
+        blank=True,
         verbose_name='Цена',
         max_digits=10,
         decimal_places=2,
@@ -51,3 +54,4 @@ class Category(models.Model):
 
     def __str__(self):
         return f'{self.name}'
+
