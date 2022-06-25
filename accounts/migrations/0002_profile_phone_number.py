@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='profile',
             name='phone_number',
-            field=models.CharField(default='+996 550 03 77 99', max_length=16, validators=[django.core.validators.RegexValidator(message='Введите номер телефона в формате +996 ХХХ ХХХ ХХХ', regex='^\\+[9]{2}?[6] [0-9]{3} [0-9]{3} [0-9]{3}$')], verbose_name='Номер телефона'),
+            field=models.CharField(max_length=20, validators=[django.core.validators.RegexValidator(message='Введите номер телефона в формате +996 ХХХ ХХХ ХХХ', regex='^\\+[9]{2}?[6] [0-9]{3} [0-9]{3} [0-9]{3}$')], verbose_name='Номер телефона'),
             preserve_default=False,
         ),
     ]

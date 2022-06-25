@@ -13,7 +13,7 @@ class Profile(models.Model):
     about = models.TextField(max_length=1000, verbose_name='О себе', null=True, blank=True)
     slug = models.SlugField(null=False, unique=True)
     phone_number = models.CharField(
-        max_length=16,
+        max_length=17,
         verbose_name='Номер телефона',
         validators=[RegexValidator(
             regex='^\+[9]{2}?[6] [0-9]{3} [0-9]{3} [0-9]{3}$',
