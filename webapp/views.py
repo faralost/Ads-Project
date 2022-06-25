@@ -106,7 +106,10 @@ class AdUpdateView(PermissionRequiredMixin, UpdateView):
         return self.request.user == self.get_object().author
 
 
-class AdDeleteView(DeleteView):
+class AdDeleteView(PermissionRequiredMixin, DeleteView):
     model = Ad
     template_name = 'ads/delete.html'
     success_url = reverse_lazy('webapp:index')
+
+    def has_permission(self):
+        return self.request.user == self.get_object().author
