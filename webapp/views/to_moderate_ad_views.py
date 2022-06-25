@@ -6,16 +6,19 @@ from django.views import View
 from django.views.generic import ListView, DetailView
 
 from webapp.models import Ad
+from webapp.views.base import SearchListView
 
 
-class AdsToModerateListView(PermissionRequiredMixin, ListView):
+class AdsToModerateListView(PermissionRequiredMixin, SearchListView):
     model = Ad
     template_name = 'ads/to_moderate_list.html'
     context_object_name = 'ads'
     paginate_by = 2
+    search_fields = ['title__icontains', 'description__icontains']
 
     def get_queryset(self):
-        return Ad.exclude_to_delete_objects.filter(status=Ad.TO_MODERATE).order_by('-created_at')
+        queryset = super().get_queryset()
+        return queryset.exclude(status=Ad.TO_DELETE).filter(status=Ad.TO_MODERATE).order_by('-created_at')
 
     def has_permission(self):
         return self.request.user.is_staff

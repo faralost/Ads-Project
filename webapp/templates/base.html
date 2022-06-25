@@ -29,6 +29,7 @@
                 {% endblock %}
             </ul>
             <div class="text-end">
+                {% include 'partial/simple_search.html' with form=search_form %}
                 {% if user.is_authenticated %}
                     <span>Привет, <a class="px-2 text-white text-uppercase"
                                      href="{% url 'accounts:detail_profile' user.profile.slug %}">{{ user.username }}!</a></span>
