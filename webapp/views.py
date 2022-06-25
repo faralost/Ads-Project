@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.urls import reverse, reverse_lazy
@@ -18,7 +19,7 @@ class AdsListView(ListView):
         return Ad.exclude_to_delete_objects.filter(status=Ad.PUBLISHED).order_by('-published_at')
 
 
-class AdsToModerateListView(ListView):
+class AdsToModerateListView(PermissionRequiredMixin, ListView):
     model = Ad
     template_name = 'ads/to_moderate_list.html'
     context_object_name = 'ads'
@@ -26,11 +27,17 @@ class AdsToModerateListView(ListView):
     def get_queryset(self):
         return Ad.exclude_to_delete_objects.filter(status=Ad.TO_MODERATE).order_by('-created_at')
 
+    def has_permission(self):
+        return self.request.user.is_staff
 
-class AdToModerateDetailView(DetailView):
+
+class AdToModerateDetailView(PermissionRequiredMixin, DetailView):
     model = Ad
     template_name = 'ads/to_moderate_detail.html'
     context_object_name = 'ad'
+
+    def has_permission(self):
+        return self.request.user.is_staff
 
 
 class AdDetailView(DetailView):
