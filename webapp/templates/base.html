@@ -21,8 +21,10 @@
                 <li><a class="nav-link px-2 text-white" href="{% url 'webapp:index' %}">Главная</a></li>
             {% if request.user.is_staff %}
                 <li><a class="nav-link px-2 text-white" href="{% url 'webapp:ads_to_moderate_liist' %}">Модерация</a></li>
-            {% endif %} 
+            {% endif %}
+            {% if request.user.is_authenticated %}
                 <li><a class="nav-link px-2 text-white" href="{% url 'webapp:ads_create' %}">Создать объявление</a></li>
+            {% endif %}
                 {% block nav %}
                 {% endblock %}
             </ul>

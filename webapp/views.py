@@ -1,4 +1,4 @@
-from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.urls import reverse, reverse_lazy
@@ -77,7 +77,7 @@ class AdRejectView(View):
         return JsonResponse(data, safe=False)
 
 
-class AdCreateView(CreateView):
+class AdCreateView(LoginRequiredMixin, CreateView):
     model = Ad
     template_name = 'ads/create.html'
     form_class = AdForm
