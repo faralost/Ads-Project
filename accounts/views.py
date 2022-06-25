@@ -3,11 +3,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.urls import reverse
-from django.views.generic import CreateView, DetailView, ListView, UpdateView
+from django.views.generic import DetailView, ListView, UpdateView
 
 from accounts.forms import MyUserCreationForm, UserChangeForm, ProfileChangeForm, PasswordChangeForm, \
     ProfileCreationForm
-from accounts.models import Profile
 
 User = get_user_model()
 
@@ -22,7 +21,7 @@ def register(request):
             p_form.user = user
             p_form.save()
             login(request, user)
-            return redirect('ads:ads_list')
+            return redirect('webapp:index')
     else:
         u_form = MyUserCreationForm()
         p_form = ProfileCreationForm()
