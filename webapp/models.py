@@ -5,6 +5,11 @@ from django.db import models
 User = get_user_model()
 
 
+class ToDeleteAdManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().exclude(status='DEL')
+
+
 class Ad(models.Model):
     TO_MODERATE = 'MOD'
     PUBLISHED = 'PUB'
@@ -44,6 +49,9 @@ class Ad(models.Model):
         choices=AD_STATUS_CHOICES,
         default=TO_MODERATE,
     )
+
+    objects = models.Manager()
+    exclude_to_delete_objects = ToDeleteAdManager()
 
     def __str__(self):
         return f'{self.title}'
