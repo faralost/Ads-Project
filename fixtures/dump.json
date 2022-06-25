@@ -1,0 +1,217 @@
+[
+{
+  "model": "webapp.ad",
+  "pk": 1,
+  "fields": {
+    "title": "продаю айфон 11",
+    "description": "новый запечатынный да",
+    "author": 4,
+    "created_at": "2022-06-25T03:37:31.016Z",
+    "updated_at": "2022-06-25T08:34:46.231Z",
+    "published_at": "2022-06-25T08:34:46.231Z",
+    "photo": "ad_photos/IMG0597.jpeg",
+    "category": 7,
+    "price": "57000.00",
+    "status": "PUB"
+  }
+},
+{
+  "model": "webapp.ad",
+  "pk": 2,
+  "fields": {
+    "title": "ищу работу",
+    "description": "ищу работу python junior",
+    "author": 2,
+    "created_at": "2022-06-25T03:39:11.643Z",
+    "updated_at": "2022-06-25T08:09:59.537Z",
+    "published_at": "2022-06-25T08:09:57.718Z",
+    "photo": "",
+    "category": 1,
+    "price": null,
+    "status": "REJ"
+  }
+},
+{
+  "model": "webapp.ad",
+  "pk": 3,
+  "fields": {
+    "title": "Открытие новых курсов",
+    "description": "Открытие новых курсов на Python",
+    "author": 3,
+    "created_at": "2022-06-25T03:45:32.440Z",
+    "updated_at": "2022-06-25T08:23:50.187Z",
+    "published_at": "2022-06-25T08:09:37Z",
+    "photo": "ad_photos/1200px-Python-logo-notext.svg.png",
+    "category": 3,
+    "price": null,
+    "status": "PUB"
+  }
+},
+{
+  "model": "webapp.ad",
+  "pk": 4,
+  "fields": {
+    "title": "FKSAKFLKmfsaf",
+    "description": "fsdfklmskdglnslakdgnksd",
+    "author": 3,
+    "created_at": "2022-06-25T03:48:14.358Z",
+    "updated_at": "2022-06-25T06:47:40.352Z",
+    "published_at": null,
+    "photo": "",
+    "category": 1,
+    "price": null,
+    "status": "DEL"
+  }
+},
+{
+  "model": "webapp.ad",
+  "pk": 5,
+  "fields": {
+    "title": "продаю свой гардероб",
+    "description": "весь",
+    "author": 3,
+    "created_at": "2022-06-25T05:47:20.535Z",
+    "updated_at": "2022-06-25T08:23:44.000Z",
+    "published_at": null,
+    "photo": "",
+    "category": 2,
+    "price": "30000.00",
+    "status": "PUB"
+  }
+},
+{
+  "model": "webapp.ad",
+  "pk": 6,
+  "fields": {
+    "title": "Тестовое объявлениее!",
+    "description": "Тестовое объявление создаю через форму",
+    "author": 1,
+    "created_at": "2022-06-25T05:58:43.466Z",
+    "updated_at": "2022-06-25T08:43:01.818Z",
+    "published_at": "2022-06-25T08:04:40.998Z",
+    "photo": "ad_photos/135625.jpg",
+    "category": 1,
+    "price": null,
+    "status": "MOD"
+  }
+},
+{
+  "model": "webapp.ad",
+  "pk": 8,
+  "fields": {
+    "title": "New AD by Fara",
+    "description": "New AD by Fara to test",
+    "author": 4,
+    "created_at": "2022-06-25T07:25:44.234Z",
+    "updated_at": "2022-06-25T08:01:25.244Z",
+    "published_at": "2022-06-25T08:01:25.243Z",
+    "photo": "ad_photos/310519.jpg",
+    "category": 4,
+    "price": null,
+    "status": "PUB"
+  }
+},
+{
+  "model": "webapp.ad",
+  "pk": 9,
+  "fields": {
+    "title": "Nothing enteresting",
+    "description": "Nothing enteresting ok",
+    "author": 2,
+    "created_at": "2022-06-25T08:29:40.047Z",
+    "updated_at": "2022-06-25T08:29:40.047Z",
+    "published_at": null,
+    "photo": "",
+    "category": 1,
+    "price": null,
+    "status": "MOD"
+  }
+},
+{
+  "model": "webapp.ad",
+  "pk": 10,
+  "fields": {
+    "title": "Объявление",
+    "description": "нет описания",
+    "author": 2,
+    "created_at": "2022-06-25T08:31:43.871Z",
+    "updated_at": "2022-06-25T08:31:43.871Z",
+    "published_at": null,
+    "photo": "ad_photos/606225.jpg",
+    "category": 4,
+    "price": null,
+    "status": "MOD"
+  }
+},
+{
+  "model": "webapp.category",
+  "pk": 1,
+  "fields": {
+    "name": "Разное"
+  }
+},
+{
+  "model": "webapp.category",
+  "pk": 2,
+  "fields": {
+    "name": "Одежда"
+  }
+},
+{
+  "model": "webapp.category",
+  "pk": 3,
+  "fields": {
+    "name": "Реклама"
+  }
+},
+{
+  "model": "webapp.category",
+  "pk": 4,
+  "fields": {
+    "name": "Аниме"
+  }
+},
+{
+  "model": "webapp.category",
+  "pk": 5,
+  "fields": {
+    "name": "Кино"
+  }
+},
+{
+  "model": "webapp.category",
+  "pk": 6,
+  "fields": {
+    "name": "Машины"
+  }
+},
+{
+  "model": "webapp.category",
+  "pk": 7,
+  "fields": {
+    "name": "Техника"
+  }
+},
+{
+  "model": "webapp.comment",
+  "pk": 1,
+  "fields": {
+    "created_at": "2022-06-25T09:49:58.715Z",
+    "updated_at": "2022-06-25T09:49:58.715Z",
+    "content": "тестовый коммент",
+    "author": 4,
+    "ad": 1
+  }
+},
+{
+  "model": "webapp.comment",
+  "pk": 2,
+  "fields": {
+    "created_at": "2022-06-25T10:01:25.470Z",
+    "updated_at": "2022-06-25T10:01:25.471Z",
+    "content": "new comment \r\nnew user",
+    "author": 2,
+    "ad": 1
+  }
+}
+]
