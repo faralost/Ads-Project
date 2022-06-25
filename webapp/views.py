@@ -1,4 +1,4 @@
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 
 from webapp.models import Ad
 
@@ -19,3 +19,9 @@ class AdsToModerateListView(ListView):
 
     def get_queryset(self):
         return Ad.exclude_to_delete_objects.filter(status=Ad.TO_MODERATE).order_by('-created_at')
+
+
+class AdToModerateDetailView(DetailView):
+    model = Ad
+    template_name = 'ads/to_moderate_detail.html'
+    context_object_name = 'ad'
