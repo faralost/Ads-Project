@@ -10,7 +10,8 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ ad.title }}</h5>
                         <p class="card-text">Категория: {{ ad.category }}</p>
-                        <p class="card-text">Автор: {{ ad.author }} </p>
+                        <p class="card-text">Автор: <a href="
+                        {% url 'accounts:detail_profile' ad.author.profile.slug %}">{{ ad.author }}</a> </p>
                         <p class="card-text">Телефон: {{ ad.author.profile.phone_number }} </p>
                         <p class="card-text">Дата создания: {{ ad.created_at}} </p>
                         <p class="card-text">Дата публикации: {{ ad.published_at|default:'еще не опубликовано'}} </p>
