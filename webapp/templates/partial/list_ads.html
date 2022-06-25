@@ -18,6 +18,7 @@
                     <p class="card-text">Автор: <a href="
                     {% url 'accounts:detail_profile' ad.author.profile.slug %}">{{ ad.author }} </a></p>
                     <p class="card-text">Телефон: {{ ad.author.profile.phone_number }} </p>
+                    <p class="card-text">Статус: {{ ad.get_status_display}}</p>
                     <div class="btn-group">
                         <a class="btn btn-primary"
                            href="{% url 'webapp:ads_update' ad.pk %}">Изменить</a>

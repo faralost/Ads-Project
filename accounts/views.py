@@ -1,12 +1,13 @@
 from django.contrib.auth import login, get_user_model, update_session_auth_hash
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.http import HttpResponseRedirect
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 from django.urls import reverse
 from django.views.generic import DetailView, ListView, UpdateView
 
 from accounts.forms import MyUserCreationForm, UserChangeForm, ProfileChangeForm, PasswordChangeForm, \
     ProfileCreationForm
+from webapp.models import Ad
 
 User = get_user_model()
 
@@ -28,11 +29,20 @@ def register(request):
     return render(request, 'accounts/registration.html', {'u_form': u_form, 'p_form': p_form})
 
 
-class UserDetailView(LoginRequiredMixin, DetailView):
+class UserDetailView(DetailView):
     model = User
     template_name = 'accounts/user_detail.html'
     context_object_name = 'user_obj'
     slug_field = 'profile__slug'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        user = get_object_or_404(User, profile__slug=self.kwargs.get('slug'))
+        if self.request.user == user or self.request.user.is_staff:
+            context['ads'] = user.ads.exclude(status=Ad.TO_DELETE)
+        else:
+            context['ads'] = user.ads.filter(status=Ad.PUBLISHED)
+        return context
 
 
 class UsersListView(PermissionRequiredMixin, ListView):
