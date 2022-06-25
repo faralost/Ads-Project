@@ -23,8 +23,8 @@ class Ad(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Автор', related_name='ads')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Дата изменения')
-    piblished_at = models.DateTimeField(null=True, verbose_name='Дата публикации')
-    photo = models.ImageField(null=True, upload_to='ad_photos', verbose_name='Фото')
+    piblished_at = models.DateTimeField(null=True, blank=True, verbose_name='Дата публикации')
+    photo = models.ImageField(null=True, blank=True, upload_to='ad_photos', verbose_name='Фото')
     category = models.ForeignKey(
         'webapp.Category',
         on_delete=models.PROTECT,
