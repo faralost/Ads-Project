@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title %}Добавление объявления{% endblock %}
+
+{% block content %}
+    <h3>Добавить объявление</h3>
+    <form method="post" enctype="multipart/form-data">
+        {% include 'partial/form.html' with button_text="Добавить" %}
+    </form>
+
+{% endblock %}

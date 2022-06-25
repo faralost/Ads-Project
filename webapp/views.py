@@ -1,8 +1,11 @@
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
+from django.urls import reverse_lazy, reverse
+from django.utils import timezone
 from django.views import View
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView
 
+from webapp.forms import AdCreateForm
 from webapp.models import Ad
 
 
@@ -35,6 +38,7 @@ class AdPublishView(View):
         ad = get_object_or_404(Ad, pk=kwargs['pk'])
         if ad.status != Ad.PUBLISHED:
             ad.status = Ad.PUBLISHED
+            ad.published_at = timezone.now()
             ad.save()
             answer = 'Опубликован'
         else:
@@ -58,3 +62,13 @@ class AdRejectView(View):
             "answer": answer
         }
         return JsonResponse(data, safe=False)
+
+
+class AdCreateView(CreateView):
+    model = Ad
+    template_name = 'ads/create.html'
+    form_class = AdCreateForm
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
