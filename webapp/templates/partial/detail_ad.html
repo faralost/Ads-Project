@@ -1,32 +1,36 @@
 {% load static %}
 <div class="row my-3">
-            <div class="col-12 col-md-4 col-lg-3">
-                <div class="card mb-3" style="width: 18rem;">
-                    {% if not ad.photo %}
-                        <img src="{% static 'img/placeholder.png' %}" class="card-img-top" alt="...">
-                    {% else %}
-                        <img src="{{ ad.photo.url }}" class="card-img-top" alt="...">
+    <div class="col-12 col-md-4 col-lg-3">
+        <div class="card mb-3" style="width: 36rem;">
+            {% if not ad.photo %}
+                <img src="{% static 'img/placeholder.png' %}" class="card-img-top" alt="...">
+            {% else %}
+                <img src="{{ ad.photo.url }}" class="card-img-top" alt="...">
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{ ad.title }}</h5>
+                <pre>{{ ad.description }}</pre>
+                {% if ad.price %}
+                    <p class="card-text">Цена: {{ ad.price }}</p>
+                {% endif %}
+                <p class="card-text">Категория: {{ ad.category }}</p>
+                <p class="card-text">Автор: <a href="
+                        {% url 'accounts:detail_profile' ad.author.profile.slug %}">{{ ad.author }}</a></p>
+                <p class="card-text">Телефон: {{ ad.author.profile.phone_number }} </p>
+                <p class="card-text">Дата создания: {{ ad.created_at }} </p>
+                <p class="card-text">Дата публикации: {{ ad.published_at|default:'еще не опубликовано' }} </p>
+                <p id="status" class="card-text">Статус: {{ ad.get_status_display }}</p>
+                <div class="btn-group">
+                    {% if request.user == ad.author and ad.get_status_display != 'Отклонено' %}
+                        <a class="btn btn-primary"
+                           href="{% url 'webapp:ads_update' ad.pk %}">Изменить</a>
                     {% endif %}
-                    <div class="card-body">
-                        <h5 class="card-title">{{ ad.title }}</h5>
-                        <p class="card-text">Категория: {{ ad.category }}</p>
-                        <p class="card-text">Автор: <a href="
-                        {% url 'accounts:detail_profile' ad.author.profile.slug %}">{{ ad.author }}</a> </p>
-                        <p class="card-text">Телефон: {{ ad.author.profile.phone_number }} </p>
-                        <p class="card-text">Дата создания: {{ ad.created_at}} </p>
-                        <p class="card-text">Дата публикации: {{ ad.published_at|default:'еще не опубликовано'}} </p>
-                        <p id="status" class="card-text">Статус: {{ ad.get_status_display}}</p>
-                        <div class="btn-group">
-                            {% if request.user == ad.author and ad.get_status_display != 'Отклонено'%}
-                                <a class="btn btn-primary"
-                                   href="{% url 'webapp:ads_update' ad.pk %}">Изменить</a>
-                             {% endif %}
-                            {% if request.user == ad.author %}
-                            <a class="btn btn-danger"
-                               href="{% url 'webapp:ads_delete' ad.pk %}">Удалить</a>
-                            {% endif %}
-                        </div>
-                    </div>
+                    {% if request.user == ad.author %}
+                        <a class="btn btn-danger"
+                           href="{% url 'webapp:ads_delete' ad.pk %}">Удалить</a>
+                    {% endif %}
                 </div>
             </div>
+        </div>
     </div>
+</div>

@@ -14,6 +14,9 @@
                             {% url 'webapp:ads_to_moderate_detail' ad.pk %}
                             {% else %}{% url 'webapp:ads_detail' ad.pk %}
                             {% endif %}">{{ ad.title }}</a></h5>
+                    {% if ad.price %}
+                        <p class="card-text">Цена: {{ ad.price }}</p>
+                    {% endif %}
                     <p class="card-text">Категория: {{ ad.category }}</p>
                     <p class="card-text">Автор: <a href="
                     {% url 'accounts:detail_profile' ad.author.profile.slug %}">{{ ad.author }} </a></p>
@@ -34,3 +37,7 @@
         </div>
     {% endfor %}
 </div>
+<br>
+{% if is_paginated %}
+    {% include 'partial/pagination.html' %}
+{% endif %}

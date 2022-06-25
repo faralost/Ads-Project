@@ -1,4 +1,3 @@
-from django.contrib import messages
 from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
 from django.http import JsonResponse
@@ -16,6 +15,7 @@ class AdsListView(ListView):
     model = Ad
     template_name = 'ads/list.html'
     context_object_name = 'ads'
+    paginate_by = 2
 
     def get_queryset(self):
         return Ad.exclude_to_delete_objects.filter(status=Ad.PUBLISHED).order_by('-published_at')
@@ -25,6 +25,7 @@ class AdsToModerateListView(PermissionRequiredMixin, ListView):
     model = Ad
     template_name = 'ads/to_moderate_list.html'
     context_object_name = 'ads'
+    paginate_by = 2
 
     def get_queryset(self):
         return Ad.exclude_to_delete_objects.filter(status=Ad.TO_MODERATE).order_by('-created_at')
