@@ -1,16 +1,7 @@
 from django.urls import path
 
-from webapp.views import (
-    AdsListView,
-    AdsToModerateListView,
-    AdToModerateDetailView,
-    AdPublishView,
-    AdRejectView,
-    AdCreateView,
-    AdDetailView,
-    AdUpdateView,
-    AdDeleteView,
-)
+from webapp.views.ad_views import AdsListView, AdCreateView, AdDetailView, AdUpdateView, AdDeleteView
+from webapp.views.to_moderate_ad_views import AdsToModerateListView, AdToModerateDetailView, AdPublishView, AdRejectView
 
 app_name = 'webapp'
 
