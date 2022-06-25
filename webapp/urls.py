@@ -1,9 +1,9 @@
 from django.urls import path
 
-from webapp.views import IndexView
+from webapp.views import AdsListView
 
 app_name = 'webapp'
 
 urlpatterns = [
-    path('', IndexView.as_view(), name='index'),
+    path('', AdsListView.as_view(), name='index'),
 ]

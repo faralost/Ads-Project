@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+    <div class="row my-3">
+        {% for ad in ads %}
+            <div class="col-12 col-md-4 col-lg-3">
+                <div class="card mb-3" style="width: 18rem;">
+                    {% if not ad.photo %}
+                        <img src="{% static 'img/placeholder.png' %}" class="card-img-top" alt="...">
+                    {% else %}
+                        <img src="{{ ad.photo.url }}" class="card-img-top" alt="...">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title"><a
+                                href="">{{ ad.title }}</a></h5>
+                        <p class="card-text">Категория: {{ ad.category }}</p>
+                        <p class="card-text">Автор: {{ ad.author }} </p>
+                        <p class="card-text">Телефон: {{ ad.author.profile.phone_number }} </p>
+                        <div class="btn-group">
+                            {% if perms.webapp.change_product %}
+                                <a class="btn btn-primary"
+                                   href="#">Изменить</a>
+                            {% endif %}
+                            {% if perms.webapp.delete_product %}
+                                <a class="btn btn-danger"
+                                   href="#">Удалить</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
