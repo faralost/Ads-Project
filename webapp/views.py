@@ -33,13 +33,27 @@ class AdToModerateDetailView(DetailView):
 class AdPublishView(View):
     def post(self, request, *args, **kwargs):
         ad = get_object_or_404(Ad, pk=kwargs['pk'])
-        print(ad.status)
         if ad.status != Ad.PUBLISHED:
             ad.status = Ad.PUBLISHED
             ad.save()
             answer = 'Опубликован'
         else:
             answer = 'Уже был опубликован'
+        data = {
+            "answer": answer
+        }
+        return JsonResponse(data, safe=False)
+
+
+class AdRejectView(View):
+    def post(self, request, *args, **kwargs):
+        ad = get_object_or_404(Ad, pk=kwargs['pk'])
+        if ad.status != Ad.REJECTED:
+            ad.status = Ad.REJECTED
+            ad.save()
+            answer = 'Отклонен'
+        else:
+            answer = 'Уже был отклонен'
         data = {
             "answer": answer
         }

@@ -9,7 +9,7 @@
             опубликовать
         </button>
         <button class="request btn btn btn-dark"
-                data-ad-url="#">
+                data-ad-url="{% url 'webapp:ads_to_moderate_reject' ad.pk %}">
             отклонить
         </button>
     {% include 'partial/detail_ad.html' %}
