@@ -1,34 +1,32 @@
 from django.contrib.auth import login, get_user_model, update_session_auth_hash
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.http import HttpResponseRedirect
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.views.generic import CreateView, DetailView, ListView, UpdateView
 
-from accounts.forms import MyUserCreationForm, UserChangeForm, ProfileChangeForm, PasswordChangeForm
+from accounts.forms import MyUserCreationForm, UserChangeForm, ProfileChangeForm, PasswordChangeForm, \
+    ProfileCreationForm
 from accounts.models import Profile
 
 User = get_user_model()
 
 
-class RegisterView(CreateView):
-    model = User
-    template_name = "accounts/registration.html"
-    form_class = MyUserCreationForm
-
-    def form_valid(self, form):
-        user = form.save()
-        Profile.objects.create(user=user)
-        login(self.request, user)
-        return redirect(self.get_success_url())
-
-    def get_success_url(self):
-        next_url = self.request.GET.get('next')
-        if not next_url:
-            next_url = self.request.POST.get('next')
-        if not next_url:
-            next_url = reverse('/')
-        return next_url
+def register(request):
+    if request.method == "POST":
+        u_form = MyUserCreationForm(request.POST)
+        p_form = ProfileCreationForm(request.POST)
+        if u_form.is_valid() and p_form.is_valid():
+            user = u_form.save()
+            p_form = p_form.save(commit=False)
+            p_form.user = user
+            p_form.save()
+            login(request, user)
+            return redirect('ads:ads_list')
+    else:
+        u_form = MyUserCreationForm()
+        p_form = ProfileCreationForm()
+    return render(request, 'accounts/registration.html', {'u_form': u_form, 'p_form': p_form})
 
 
 class UserDetailView(LoginRequiredMixin, DetailView):

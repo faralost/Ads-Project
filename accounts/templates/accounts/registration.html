@@ -10,7 +10,11 @@
 
 {% block content %}
     <h2>Регистрация</h2>
-    <form method="post">
-        {% include "accounts/form.html" with button_text="Зарегистрироваться" %}
+    <form action="" method="post">
+        {% csrf_token %}
+        {% include 'accounts/form.html' with form=u_form fields_only=True %}
+        {% include 'accounts/form.html' with form=p_form fields_only=True %}
+        <br>
+        <input class="btn btn-primary" type="submit" value="Зарегистрироваться">
     </form>
 {% endblock %}

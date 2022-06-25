@@ -21,7 +21,13 @@ class MyUserCreationForm(UserCreationForm, UserFormValidationMixin):
     email = forms.EmailField(required=True)
 
     class Meta(UserCreationForm.Meta):
-        fields = ("username", "password1", "password2", "email", "first_name", "last_name")
+        fields = ["username", "password1", "password2", "email", "first_name", "last_name"]
+
+
+class ProfileCreationForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['phone_number']
 
 
 class UserChangeForm(forms.ModelForm, UserFormValidationMixin):
