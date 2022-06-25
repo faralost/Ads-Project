@@ -3,5 +3,14 @@
 
 {% block title %}Детальный просмотр объявления для модерации{% endblock %}
 {% block content %}
+    <br>
+        <button class="request btn btn btn-info"
+                data-ad-url="{% url 'webapp:ads_to_moderate_publish' ad.pk %}">
+            опубликовать
+        </button>
+        <button class="request btn btn btn-dark"
+                data-ad-url="#">
+            отклонить
+        </button>
     {% include 'partial/detail_ad.html' %}
 {% endblock %}

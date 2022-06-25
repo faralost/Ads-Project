@@ -1,3 +1,6 @@
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
+from django.views import View
 from django.views.generic import ListView, DetailView
 
 from webapp.models import Ad
@@ -25,3 +28,19 @@ class AdToModerateDetailView(DetailView):
     model = Ad
     template_name = 'ads/to_moderate_detail.html'
     context_object_name = 'ad'
+
+
+class AdPublishView(View):
+    def post(self, request, *args, **kwargs):
+        ad = get_object_or_404(Ad, pk=kwargs['pk'])
+        print(ad.status)
+        if ad.status != Ad.PUBLISHED:
+            ad.status = Ad.PUBLISHED
+            ad.save()
+            answer = 'Опубликован'
+        else:
+            answer = 'Уже был опубликован'
+        data = {
+            "answer": answer
+        }
+        return JsonResponse(data, safe=False)
